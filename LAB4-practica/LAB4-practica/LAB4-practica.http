@@ -1,0 +1,6 @@
+@LAB4_practica_HostAddress = http://localhost:5111
+
+GET {{LAB4_practica_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
