@@ -45,7 +45,6 @@ namespace Application.Services
             {
                 Id = function.Id,
                 Movie = function.Movie,
-                DirectorFilm = function.DirectorFilm,
                 Hour = function.Hour,
                 Date = function.Date,
                 Price = function.Price
