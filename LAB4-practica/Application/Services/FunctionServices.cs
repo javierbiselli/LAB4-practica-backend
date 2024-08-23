@@ -45,7 +45,6 @@ namespace Application.Services
             {
                 Id = function.Id,
                 Movie = function.Movie,
-                Hour = function.Hour,
                 Date = function.Date,
                 Price = function.Price
             };
@@ -61,7 +60,6 @@ namespace Application.Services
             if (updateFuncValidate != null)
             {
                 updateFuncValidate.Price = editFunc.Price;
-                updateFuncValidate.Hour = editFunc.Hour;
                 updateFuncValidate.Date = editFunc.Date;
 
                 _repository.UpdateFunction(updateFuncValidate);
