@@ -11,12 +11,12 @@ namespace Domain.Entities
     public class Function
     {
         public int Id { get; set; }
-        public DateOnly Date { get; set; }
-        public int Hour { get; set; }
+        public DateTime Date { get; set; }
+
         public double Price { get; set; }
         public int MovieId { get; set; }
         [ForeignKey("MovieId")]
-        public Movie Movie { get; set; }
+        //public Movie Movie { get; set; }
 
     }
 }

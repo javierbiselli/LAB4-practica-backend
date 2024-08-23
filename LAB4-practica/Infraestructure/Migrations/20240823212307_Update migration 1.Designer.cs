@@ -3,6 +3,7 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240823212307_Update migration 1")]
+    partial class Updatemigration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -40,6 +43,9 @@ namespace Infraestructure.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Hour")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("INTEGER");
@@ -88,12 +94,17 @@ namespace Infraestructure.Migrations
             modelBuilder.Entity("Domain.Entities.Movie", b =>
                 {
                     b.HasOne("Domain.Entities.Director", "FilmDirector")
-                        .WithMany()
+                        .WithMany("Movie")
                         .HasForeignKey("FilmDirectorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("FilmDirector");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Director", b =>
+                {
+                    b.Navigation("Movie");
                 });
 #pragma warning restore 612, 618
         }

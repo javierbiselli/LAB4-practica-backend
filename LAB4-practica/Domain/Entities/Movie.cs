@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string Title { get; set; }
         public Director FilmDirector { get; set; }
+
+        public ICollection<Function> Functions { get; set; }
 
 
     }
