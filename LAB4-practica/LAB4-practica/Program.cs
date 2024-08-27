@@ -21,6 +21,9 @@ builder.Services.AddScoped<ApplicationContext>();
 builder.Services.AddScoped<IFunctionServices, FunctionServices>();
 builder.Services.AddScoped<IFunctionRepository, FunctionRepository>();
 
+builder.Services.AddScoped<IMovieServices, MovieServices>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+
 
 var app = builder.Build();
 

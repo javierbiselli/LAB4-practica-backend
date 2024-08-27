@@ -21,34 +21,34 @@ namespace Infrastructure.Repositories
         //getAllFunction
         public List<Function> GetAllFunction()
         {
-            return _context.Function.ToList();
+            return _context.Functions.ToList();
         }
 
         //getFunctionById
         public Function? GetFunctionById(int id)
         {
-            return _context.Function.FirstOrDefault(p => p.Id == id);
+            return _context.Functions.FirstOrDefault(p => p.Id == id);
         }
 
 
         //createFunction
         public void AddFunction(Function function)
         {
-            _context.Function.Add(function);
+            _context.Functions.Add(function);
             _context.SaveChanges();
         }
 
         //updateProduct
         public void UpdateFunction(Function function)
         {
-            _context.Function.Update(function);
+            _context.Functions.Update(function);
             _context.SaveChanges();
         }
 
         //deleteProduct
         public void DeleteFunction(Function function)
         {
-            _context.Function.Remove(function);
+            _context.Functions.Remove(function);
             _context.SaveChanges();
         }
 

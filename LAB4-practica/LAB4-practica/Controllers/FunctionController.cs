@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Dtos.Request;
+using Application.Interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,9 +36,9 @@ namespace LAB4_practica.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddFunction([FromBody] Function func) 
+        public ActionResult AddFunction([FromBody] FunctionRequestDto data) 
         {
-            _functionServices.AddFunction(func);
+            _functionServices.AddFunction(data);
             return Ok();
         }
 

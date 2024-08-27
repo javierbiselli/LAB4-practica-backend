@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Dtos.Request;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace Application.Interfaces
     {
         List<Function> GetAll();
         Function? GetFunctionById(int id);
-        void AddFunction(Function function);
-        void UpdateFunction(Function editFunc, int id);
+        void AddFunction(FunctionRequestDto data);
+        void UpdateFunction(Function data, int id);
         bool DeleteFunction(int id);
 
 

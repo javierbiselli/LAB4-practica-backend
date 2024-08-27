@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Dtos.Request;
+using Application.Interfaces;
 using Domain.Entities;
 using Domain.Interface;
 using System;
@@ -39,28 +40,27 @@ namespace Application.Services
 
         //Metodo 3: Crea un funcion
 
-        public void AddFunction(Function function)
+        public void AddFunction(FunctionRequestDto data)
         {
-            var obj = new Function()
+            var obj = new Function(data.Date, data.Price, data.MovieId)
             {
-                Id = function.Id,
-                Movie = function.Movie,
-                Date = function.Date,
-                Price = function.Price
+                Date = data.Date,
+                Price = data.Price,
+                MovieId = data.MovieId
             };
             _repository.AddFunction(obj);
   
         }
 
         //Metodo 4: Actualiza una funcion 
-        public void UpdateFunction(Function editFunc, int id)
+        public void UpdateFunction(Function data, int id)
         {
             var updateFuncValidate = _repository.GetFunctionById(id);
 
             if (updateFuncValidate != null)
             {
-                updateFuncValidate.Price = editFunc.Price;
-                updateFuncValidate.Date = editFunc.Date;
+                updateFuncValidate.Price = data.Price;
+                updateFuncValidate.Date = data.Date;
 
                 _repository.UpdateFunction(updateFuncValidate);
                 _repository.SaveChanges();
