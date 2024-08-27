@@ -1,6 +1,8 @@
-﻿using Domain.Entities;
+﻿using Application.Dtos.Response;
+using Domain.Entities;
 using Domain.Interface;
 using Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,21 +19,24 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-
-        //getAllFunction
         public List<Movie> GetAllMovies()
         {
-            return _context.Movies.ToList();
+            return _context.Movies
+                           .Include(m => m.Functions) // Incluye las funciones asociadas
+                           .Include(m => m.Director) // Incluye el director de la película
+                           .ToList();
         }
 
-        //getFunctionById
         public Movie? GetMovieById(int id)
         {
-            return _context.Movies.FirstOrDefault(p => p.Id == id);
+            return _context.Movies
+                           .Include(m => m.Functions)
+                           .ThenInclude(f => f.Movie)
+                           .Include(m => m.Director)
+                           .FirstOrDefault(m => m.Id == id);
         }
 
 
-        //createFunction
         public void AddMovie(Movie movie)
         {
             _context.Movies.Add(movie);

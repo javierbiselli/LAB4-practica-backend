@@ -21,20 +21,35 @@ namespace Infrastructure.Repositories
         //getAllFunction
         public List<Function> GetAllFunction()
         {
-            return _context.Functions.ToList();
+            return _context.Functions
+                  .Include(f => f.Movie)
+                  .ToList();
         }
 
         //getFunctionById
         public Function? GetFunctionById(int id)
         {
-            return _context.Functions.FirstOrDefault(p => p.Id == id);
+            return _context.Functions
+                  .Include(f => f.Movie)
+                  .FirstOrDefault(p => p.Id == id);
         }
 
 
         //createFunction
         public void AddFunction(Function function)
         {
-            _context.Functions.Add(function);
+            var movie = _context.Movies.Include(m => m.Functions)
+                              .FirstOrDefault(m => m.Id == function.MovieId);
+
+            if (movie == null)
+            {
+                throw new Exception("Movie not found");
+            }
+
+            // Agregar la nueva función
+            movie.Functions.Add(function);
+
+            // Guardar los cambios en el contexto
             _context.SaveChanges();
         }
 

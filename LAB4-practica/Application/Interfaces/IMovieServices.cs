@@ -1,4 +1,5 @@
 ﻿using Application.Dtos.Request;
+using Application.Dtos.Response;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace Application.Interfaces
 {
     public interface IMovieServices
     {
-        List<Movie> GetAll();
-        Movie? GetMovieById(int id);
+        List<MovieDto> GetAll();
+        MovieDto? GetMovieById(int id);
         void AddMovie(MovieRequestDto data);
     }
 }

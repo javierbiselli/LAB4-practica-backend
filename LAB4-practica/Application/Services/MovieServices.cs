@@ -1,4 +1,5 @@
 ﻿using Application.Dtos.Request;
+using Application.Dtos.Response;
 using Application.Interfaces;
 using Domain.Entities;
 using Domain.Interface;
@@ -17,24 +18,53 @@ namespace Application.Services
         public MovieServices(IMovieRepository repository) { _repository = repository; }
 
         //Metodo 1: Trae todos los movies
-        public List<Movie> GetAll()
+        public List<MovieDto> GetAll()
         {
+            var movies = _repository.GetAllMovies();
 
-            return _repository.GetAllMovies();
-        }
-
-        //Metodo 2: Trae una movies
-
-        public Movie? GetMovieById(int id)
-        {
-            var mov = _repository.GetMovieById(id);
-
-            if (mov != null)
+            return movies.Select(m => new MovieDto
             {
-                return mov;
-            }
-            else { return null; }
+                Id = m.Id,
+                Title = m.Title,
+                Director = new DirectorDto
+                {
+                    Id = m.Director.Id,
+                    Name = m.Director.Name
+                },
+                Functions = m.Functions.Select(f => new FunctionDto
+                {
+                    Id = f.Id,
+                    Date = f.Date,
+                    Price = f.Price
+                }).ToList()
+            }).ToList();
         }
+
+        public MovieDto? GetMovieById(int id)
+        {
+            var movie = _repository.GetMovieById(id);
+
+            if (movie == null)
+                return null;
+
+            return new MovieDto
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Director = new DirectorDto
+                {
+                    Id = movie.Director.Id,
+                    Name = movie.Director.Name
+                },
+                Functions = movie.Functions.Select(f => new FunctionDto
+                {
+                    Id = f.Id,
+                    Date = f.Date,
+                    Price = f.Price
+                }).ToList()
+            };
+        }
+
 
         //Metodo 3: Crea un movie
 
