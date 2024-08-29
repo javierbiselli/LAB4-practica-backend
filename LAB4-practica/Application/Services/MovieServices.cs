@@ -26,6 +26,9 @@ namespace Application.Services
             {
                 Id = m.Id,
                 Title = m.Title,
+                Description = m.Description,
+                Genre = m.Genre,
+                isNational = m.IsNational,
                 Director = new DirectorDto
                 {
                     Id = m.Director.Id,
@@ -51,6 +54,9 @@ namespace Application.Services
             {
                 Id = movie.Id,
                 Title = movie.Title,
+                Description = movie.Description,
+                Genre = movie.Genre,
+                isNational = movie.IsNational,
                 Director = new DirectorDto
                 {
                     Id = movie.Director.Id,
@@ -70,10 +76,13 @@ namespace Application.Services
 
         public void AddMovie(MovieRequestDto data)
         {
-            var obj = new Movie(data.Title, data.DirectorId)
+            var obj = new Movie(data.Title, data.Description, data.Genre, data.DirectorId, data.IsNational)
             {
                 Title = data.Title,
+                Description = data.Description,
+                Genre = data.Genre,
                 DirectorId = data.DirectorId,
+                IsNational = data.IsNational,
             };
             _repository.AddMovie(obj);
 
