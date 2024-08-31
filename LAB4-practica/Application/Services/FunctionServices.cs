@@ -1,4 +1,5 @@
 ﻿using Application.Dtos.Request;
+using Application.Dtos.Response;
 using Application.Interfaces;
 using Domain.Entities;
 using Domain.Interface;
@@ -16,26 +17,23 @@ namespace Application.Services
     {
         private readonly IFunctionRepository _repository;
 
-        public FunctionServices(IFunctionRepository repository) {_repository = repository; } 
+        public FunctionServices(IFunctionRepository repository) {_repository = repository; }
 
-        //Metodo 1: Trae todos los productos
-        public List<Function> GetAll()
-        {
 
-            return _repository.GetAllFunction();
-        }
-
-        //Metodo 2: Trae todos los productos
-
-        public Function? GetFunctionById(int id)
+        public FunctionDto? GetFunctionById(int id)
         {
             var func = _repository.GetFunctionById(id);
 
-            if (func != null)
+            if (func == null)
+                return null;
+
+            return new FunctionDto
             {
-                return func;
-            }
-            else { return null; }
+                Id = func.Id,
+                Date = func.Date,
+                Price = func.Price,
+                MovieTitle = func.Movie.Title // Asegúrate de que func.Movie no sea null
+            };
         }
 
         //Metodo 3: Crea un funcion

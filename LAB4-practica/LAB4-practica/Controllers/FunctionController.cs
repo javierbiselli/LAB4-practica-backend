@@ -1,6 +1,7 @@
 ﻿using Application.Dtos.Request;
 using Application.Interfaces;
 using Domain.Entities;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.WebSockets;
@@ -9,6 +10,7 @@ namespace LAB4_practica.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowAllOrigins")]
     public class FunctionController : ControllerBase
     {
         private readonly IFunctionServices _functionServices;
@@ -18,19 +20,13 @@ namespace LAB4_practica.Controllers
             _functionServices = functionServices;
         }
 
-        [HttpGet]
-        public ActionResult<List<Function>> GetAll()
-        {
-            return Ok(_functionServices.GetAll());
-        }
-
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var func = _functionServices.GetFunctionById(id);
             if (func == null)
             {
-                return NotFound();
+                return NotFound(new { message = "No se encontro la funcion" });
             }
             return Ok(func);
         }
@@ -39,7 +35,7 @@ namespace LAB4_practica.Controllers
         public ActionResult AddFunction([FromBody] FunctionRequestDto data) 
         {
             _functionServices.AddFunction(data);
-            return Ok();
+            return Ok(new { message = "Funcion agregada correctamente"});
         }
 
         [HttpPut]
@@ -56,7 +52,7 @@ namespace LAB4_practica.Controllers
 
             if (!del)
             {
-                return NotFound();                
+                return NotFound(new { message = "No se encontro la funcion" });                
             }
 
             return NoContent();

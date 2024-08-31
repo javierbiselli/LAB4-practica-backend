@@ -17,14 +17,6 @@ namespace Infrastructure.Repositories
             _context = context;
         }
         
-        
-        //getAllFunction
-        public List<Function> GetAllFunction()
-        {
-            return _context.Functions
-                  .Include(f => f.Movie)
-                  .ToList();
-        }
 
         //getFunctionById
         public Function? GetFunctionById(int id)

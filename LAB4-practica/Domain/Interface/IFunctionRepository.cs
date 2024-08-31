@@ -9,7 +9,6 @@ namespace Domain.Interface
 {
     public interface IFunctionRepository
     {
-        public List<Function> GetAllFunction();
         public Function? GetFunctionById(int id);
         public void AddFunction(Function function);
         public void UpdateFunction(Function function);
