@@ -13,17 +13,6 @@ namespace Domain.Entities
 {
     public class Movie
     {
-
-        public Movie(string title, string description, string genre, int directorId, bool isNational)
-        {
-            Title = title;
-            Description = description;
-            Genre = genre;
-            Functions = new List<Function>();
-            DirectorId = directorId;
-            IsNational = isNational;
-        }
-
         [Key]
         public int Id { get; set; }
         public string Title { get; set; }
@@ -33,7 +22,6 @@ namespace Domain.Entities
         [ForeignKey("DirectorId")]
         public int DirectorId { get; set; }
         public Director Director { get; set; }
-
         public ICollection<Function> Functions { get; set; }
     }
 }

@@ -12,8 +12,8 @@ namespace Application.Interfaces
     public interface IFunctionServices
     {
         FunctionDto? GetFunctionById(int id);
-        void AddFunction(FunctionRequestDto data);
-        void UpdateFunction(Function data, int id);
+        bool AddFunction(FunctionRequestDto data);
+        bool UpdateFunction(FunctionRequestDto data, int id);
         bool DeleteFunction(int id);
 
 

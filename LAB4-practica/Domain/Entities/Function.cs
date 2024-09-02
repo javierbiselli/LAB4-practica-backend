@@ -11,17 +11,9 @@ namespace Domain.Entities
 {
     public class Function
     {
-        public Function(DateTime date, double price, int movieId) 
-        {
-            Date = date;
-            Price = price;
-            MovieId = movieId;
-        }
-
         [Key]
         public int Id { get; set; }
         public DateTime Date { get; set; }
-
         public double Price { get; set; }
         [ForeignKey("MovieId")]
         public int MovieId { get; set; }

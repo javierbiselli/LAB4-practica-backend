@@ -76,7 +76,7 @@ namespace Application.Services
 
         public void AddMovie(MovieRequestDto data)
         {
-            var obj = new Movie(data.Title, data.Description, data.Genre, data.DirectorId, data.IsNational)
+            var obj = new Movie()
             {
                 Title = data.Title,
                 Description = data.Description,

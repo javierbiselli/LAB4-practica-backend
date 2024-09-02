@@ -38,20 +38,22 @@ namespace Application.Services
 
         //Metodo 3: Crea un funcion
 
-        public void AddFunction(FunctionRequestDto data)
+        public bool AddFunction(FunctionRequestDto func)
         {
-            var obj = new Function(data.Date, data.Price, data.MovieId)
+            var obj = new Function()
             {
-                Date = data.Date,
-                Price = data.Price,
-                MovieId = data.MovieId
+                Date = func.Date,
+                Price = func.Price,
+                MovieId = func.MovieId
             };
             _repository.AddFunction(obj);
-  
+            _repository.SaveChanges();
+
+            return (true);
         }
 
         //Metodo 4: Actualiza una funcion 
-        public void UpdateFunction(Function data, int id)
+        public bool UpdateFunction(FunctionRequestDto data, int id)
         {
             var updateFuncValidate = _repository.GetFunctionById(id);
 
@@ -62,10 +64,9 @@ namespace Application.Services
 
                 _repository.UpdateFunction(updateFuncValidate);
                 _repository.SaveChanges();
-
-
+                return(true);
             }
-
+            return (false);
         }
 
         //Metodo 5: Elimina un funcion

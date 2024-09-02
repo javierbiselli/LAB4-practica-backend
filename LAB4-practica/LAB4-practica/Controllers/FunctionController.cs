@@ -32,16 +32,27 @@ namespace LAB4_practica.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddFunction([FromBody] FunctionRequestDto data) 
+        public ActionResult AddFunction([FromBody] FunctionRequestDto func) 
         {
-            _functionServices.AddFunction(data);
+            var fun = _functionServices.AddFunction(func);
+
+            if (fun == false) return BadRequest();
+
             return Ok(new { message = "Funcion agregada correctamente"});
         }
 
-        [HttpPut]
-        public ActionResult UpdateFunction([FromBody] Function func, int id)
+        [HttpPut("{id}")]
+        public ActionResult UpdateFunction(FunctionRequestDto func, int id)
         {
-            _functionServices.UpdateFunction(func, id);
+            if(id != func.Id)
+            {
+                return BadRequest();
+            }
+
+            var fun = _functionServices.UpdateFunction(func, id);
+
+            if (fun == false) return NotFound("Function not found");
+
             return NoContent();
         }
 
